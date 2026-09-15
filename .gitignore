@@ -1,0 +1,13 @@
+# Ignorar todo lo que esté en la raíz
+/*
+
+# Permitir el propio .gitignore
+!/.gitignore
+
+# Permitir los trabajos prácticos
+!/TP01/
+!/TP02/
+!/TP03/
+
+# Ignorar ejecutables
+*.exe
