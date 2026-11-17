@@ -1,0 +1,133 @@
+1. ¿Qué es un puntero? 
+Un puntero es una variable que almacena una dirección de memoria, que corresponde a la ubicación de otra variable.
+
+
+int numero = 2
+0x67 > Dirección de memoria de numero
+
+int *p va a guardar la dirección de memoria de int numero.
+
+
+
+
+2. Ventajas y desventajas de los punteros:
+
+Ventajas:
+• Acceso directo a la memoria
+• Paso por referencia en funciones
+• Eficiencia en el manejo de datos
+• Estructuras de datos dinámicas
+• Aritmética de Punteros
+
+Desventajas: 
+• Fugas de memoria (memory leaks): 
+• Punteros colgantes o nulos (dangling pointers)
+• Fallos de segmentación (segmentation faults)
+• Complejidad y dificultad para depurar
+• Mayor lentitud por indirección
+
+3. Definición y características de vector:
+
+Un vector es un conjunto de variables de mismo tipo referenciadas por un nombre en común y diferenciadas entre sí por un subindice numérico. 
+                            tipo_dato v[tamaño] = {dato1, dato2, dato3};
+Características: 
+    - Todos los elementos que componen el vector tienen que ser del mismo tipo, es decir, homogeneas.
+    - Tienen que tener memoria continua.
+    - Estructura lineal de acceso directo, accedes de forma directa mediante su subíndice
+    - El vector actúa como un puntero constante que actua como la dirección de memoria de su primer elemento.
+    - Su dimensión se define al declarar el vector y no puede cambiar durante la ejecución del programa.
+    
+Definición y características de un arreglo multidimensional (matrices):
+
+Un arreglo multidimensional es una estructura de datos que almacena información en mas de una dimensión, como filas y columnas (matrices). Sigue manteniendo las características de un arreglo de 1 dimension, solo que se le agregan más dimensiones. Una matriz es un arreglo de N filas x N columnas.
+
+
+4. ¿Para qué sirven los prototipos de las funciones? 
+Un prototipo de función en C es una declaración anticipada que informa al compilador sobre el tipo de retorno, el nombre de la función y los tipos de sus parámetros antes de ser definida.
+
+
+5. Explicar en qué consiste la técnica de burbuja:
+El metodo de ordenamiento de burbuja implica comparar los elementos adyacentes en un arreglo e
+intercambiarlos en caso de que no se encuentren en el orden deseado.
+
+
+Código en C: 
+void ordenar_2(int datos[], int n)
+{
+int i, j, aux;
+for (i = n-1; i > 0; i--)
+for (j = 1; j <= i; j++)
+if (datos[j-1] > datos[j])
+{
+/* Intercambio */
+aux = datos[j];
+datos[j] = datos[j-1];
+datos[j-1] = aux;
+}
+}                                                                 
+
+Principales ventajas
+
+• Simplicidad extrema: Es muy fácil de entender, programar y recordar, lo que lo convierte en el primer algoritmo ideal para enseñar lógica de programación.
+• Detección de listas ordenadas: Si la lista ya está completamente ordenada (o casi ordenada y se usa una versión con bandera de optimización), puede detectar esto en una sola pasada con una complejidad de O(n).
+• Es estable: Mantiene el orden relativo de los elementos que tienen el mismo valor.
+• Uso mínimo de memoria: Funciona in-place (en el mismo lugar), requiriendo muy poca memoria adicional (O(1))
+
+
+6. Ordenamiento por burbuja mejorada: 
+
+Antes dijimos sobre la cantidad de iteraciones que el primer planteo podría ser repetir el procedimiento una vez por cada elemento que tenga el arreglo.
+Pero en realidad, no es necesario:
+Podríamos poner una bandera que indique si en la última pasada se realizó o no un intercambio. Si no se realizaron intercambios, ya no se sigue más porque esto implica que no importa cuantas veces me falta recorrerlo, todos sus elementos ya están ordenados. 
+                                                               
+Código en C: 
+void ordenar_burbuja(int datos[], int n) {
+    int i, j, aux, nointer = 0;
+    for (i = 0; i < n - 1 && nointer == 0; i++) {
+        nointer = 1;
+        for (j = 0; j < n - i - 1; j++)
+            if (datos[j] > datos[j + 1]) {
+                /* Intercambio */
+                aux = datos[j];
+                datos[j] = datos[j + 1];
+                datos[j + 1] = aux;
+                nointer = 0;
+            }
+    }
+}
+
+7. ¿Qué es la busqueda secuencial? 
+Consiste en recorrer el vector de manera secuencial, comparando el elemento con el elemento buscado (clave). Existen dos métodos posibles:
+Recorrer todo el vector guardando la última posición en la cual se encontró el elemento.
+Recorrer el vector hasta la primera coincidencia con el elemento buscado. Se guarda  la primera posición.
+
+
+
+
+
+8. ¿Qué es la búsqueda binaria?
+Método más eficiente que el anterior: No necesita recorrer todo el vector.
+Es necesario tener el conjunto de datos del vector ordenado previamente.
+Compara si el elemento buscado es mayor o menor al valor central del conjunto de cada iteración.
+Luego fracciona el conjunto a la mitad, y realiza una nueva búsqueda en la fracción que corresponda.
+Si el elemento es mayor que el valor central, buscará en la fracción superior. Si es menor, en la inferior.
+
+int buscar_4(int clave, int datos[], int n)
+{
+int inferior, superior, centro;
+inferior = 0;
+superior = n-1;
+while ( (inferior <= superior) )
+    {
+    centro = (inferior + superior) / 2; /* División entera */
+    if (clave == datos[centro])
+    	return centro; /* Encontrado */
+    else if (clave < datos[centro])
+    	superior = centro - 1; /* Buscar en la primera mitad */
+    else
+    	inferior = centro + 1; /* Buscar en la segunda mitad */
+    }
+/* Si no lo encuentra, retorna 'n' */
+return n;
+}
+
